@@ -1,0 +1,5 @@
+# 以下目录下的文件不做代码规范检查
+build/*.js
+config/*.js
+src/assets
+src/*
