@@ -1,0 +1,40 @@
+.header{
+    background-color: #ffd100;
+    color: #333;
+}
+.el-dropdown-link{
+    color: #333;
+    cursor: pointer;
+}
+.tags-view-item.active {
+    color: #333;
+}
+.el-menu-item.is-active {
+    color: #ff7002;
+}
+.login-wrap{
+    background: rgba(255, 209, 0, 0.82);;
+}
+.plugins-tips{
+    background: #f2f2f2;
+}
+.plugins-tips a{
+    color: #ffd100;
+}
+.el-upload--text em {
+    color: #ffd100;
+}
+.pure-button{
+    background: #ffd100;
+}
+.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
+    background-color: #ffd100 !important;
+    border-color: #ffd100 !important;
+}
+.tags-li.active {
+    border: 1px solid #ffd100;
+    background-color: #ffd100;
+}
+.collapse-btn:hover{
+    background: #ffd100;
+}
