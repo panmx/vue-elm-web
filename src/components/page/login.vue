@@ -72,10 +72,10 @@
         },
         methods: {
             login: function () {
-                this.$router.push('/dashboard')
                 var userInfo = {"userInfo":{"wxUserId":null,"userId":"123456","userCode":"","orgId":"789","orgName":null,"userName":"路人甲","phone":"1591441xxxx","userDepartno":null,"userDepartment":"技术部","userState":1,"userGender":2,"createdate":"2018-11-23 16:14:42.0","updateUserName":"路人甲","updateDate":"2018-12-10 17:27:00.0","account":"123","password":null,"adminState":1,"search":null,"roleList":[]},"roleInfo":[{"id":"10001","orgId":"789","roleCode":"X001","roleName":"管理员","description":"管理员","state":1,"roleType":2,"appId":null,"appType":0,"menusDto":[]}]}
                 userInfo.isLogin = true
                 StorageUtils.setItem(StorageUtils.storageKey.user_loginInfo, userInfo)
+                this.$router.push('/dashboard')
                 return;
 
                 var strErr = ''
