@@ -44,12 +44,12 @@
         },
         methods: {
             isActive(path) {
-                return path === this.$route.path;
+                return path.split('?')[0] === this.$route.path;
             },
             // 路由刷新事件
             refreshClick: function () {
                 this.tagsList = this.tagsList.filter(item => {
-                    if( item.path === this.selectedTag.path){
+                    if( item.path.split('?')[0] === this.selectedTag.path.split('?')[0]){
                         item.isFlesh = true
                     }else{
                         item.isFlesh = false
@@ -76,7 +76,7 @@
                 const delItem = this.tagsList.splice(index, 1)[0];
                 const item = this.tagsList[index] ? this.tagsList[index] : this.tagsList[index - 1];
                 if (item) {
-                    delItem.path === this.$route.path && this.$router.push(item.path);
+                    delItem.path.split('?')[0] === this.$route.path && this.$router.push(item.path);
                 }else{
                     this.$router.push('/');
                 }
@@ -84,9 +84,9 @@
             // 关闭单个标签
             closeTagsBySelectedTag() {
                 this.tagsList = this.tagsList.filter(item => {
-                    return item.path !== this.selectedTag.path;
+                    return item.path.split('?')[0] !== this.selectedTag.path.split('?')[0];
                 })
-                if(this.tagsList.length && this.selectedTag.path === this.$route.path){
+                if(this.tagsList.length && this.selectedTag.path.split('?')[0] === this.$route.path){
                     this.$router.push(this.tagsList[this.tagsList.length - 1].path);
                 }else if(!this.tagsList.length){
                     this.$router.push('/');
@@ -99,28 +99,28 @@
             },
             // 关闭其他标签
             closeOtherBySelectedTag(){
-                this.$router.push(this.selectedTag.path)
+                this.$router.push(this.selectedTag.path);
                 const curItem = this.tagsList.filter(item => {
-                    return item.path === this.selectedTag.path;
+                    return item.path.split('?')[0] === this.selectedTag.path.split('?')[0];
                 })
                 this.tagsList = curItem;
             },
             // 关闭其他标签
             closeOther(){
-                this.$router.push(this.$route.path)
+                this.$router.push(this.$route.path);
                 const curItem = this.tagsList.filter(item => {
-                    return item.path === this.$route.path;
+                    return item.path.split('?')[0] === this.$route.path;
                 })
                 this.tagsList = curItem;
             },
             // 设置标签
             setTags(route,oldValue){
                 const isExist = this.tagsList.some(item => {
-                    return item.path === route.path;
-                })
+                    return item.path.split('?')[0] === route.path;
+                });
                 // 如果上一页标签路径等于想要关闭的标签路径，关闭上一页标签
                 if (window.curCloseTagPath && oldValue && oldValue.fullPath) {
-                    var pathArr = oldValue.fullPath.split('?')
+                    let pathArr = oldValue.fullPath.split('?');
                     if(pathArr[0] && pathArr[0] === window.curCloseTagPath){
                         this.tagsList = this.tagsList.filter(function (row) {
                             if (row.path === window.curCloseTagPath) {
@@ -132,11 +132,19 @@
                     }
                     window.curCloseTagPath = ''
                 } else {
+                    // 標簽存在，并且當前頁面含有參數，替換掉路徑
+                    if(isExist && route.fullPath.indexOf('?')>=0){
+                        this.tagsList.filter(row=>{
+                            if(row.path.split('?')[0] === route.fullPath.split('?')[0]){
+                                row.path = route.fullPath;
+                            }
+                        })
+                    }
                     // 判断标签路径是否存在，如果存在，不新增标签；反之，新增标签
                     !isExist && (route.path.indexOf('/redirect/') < 0)  && this.tagsList.push({
                         title: route.meta.title,
                         keepAlive: route.meta.keepAlive ? route.meta.keepAlive : false,
-                        path: route.path,
+                        path: route.fullPath,
                         name: route.matched[1].components.default.name
                     })
                 }
