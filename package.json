@@ -64,7 +64,7 @@
         "vue-cropperjs": "^2.2.0",
         "vue-quill-editor": "3.0.6",
         "vue-schart": "^1.0.0",
-        "xlsx": "^0.13.4"
+        "xlsx": "^0.17.0"
     },
     "devDependencies": {
         "autoprefixer": "8.5.0",
